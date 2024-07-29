@@ -1,10 +1,12 @@
 use std::io;
 use std::collections::HashMap;
-use std::process::Command;
+use std::io::stdout;
+use std::io::Write; // Para flush
 
 fn main() {
     let mut todo_list: Vec<HashMap<String, bool>> = Vec::new();
     loop {
+        clear_terminal();
         println!("--------------------------------------");
         println!("Bem-vindo ao gerenciador de todo-list ");
         println!("--------------------------------------");
@@ -88,4 +90,9 @@ fn get_user_input() -> String {
         .read_line(&mut input)
         .expect("Failed to read input");
     return input.trim().to_string();
+}
+
+fn clear_terminal() {
+    print!("\x1B[2J\x1B[1;1H"); // Códigos de escape ANSI para limpar a tela
+    stdout().flush().expect("Failed to flush stdout");
 }
